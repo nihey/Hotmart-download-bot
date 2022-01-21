@@ -230,12 +230,11 @@ def getPlayerInfo(authMart, media):
     #     phtml.write(playerData)
 
     playerDom = BeautifulSoup(playerData, features="html.parser")
-    playerConfigurations = playerDom \
-        .find(text=re.compile("window.playerConfig"))[:-1]
-    playerConfigJson = playerConfigurations.split(" ", 2)[2]
+    playerConfigurations = playerDom.find(text=re.compile("playerData"))
+    playerConfigJson = playerConfigurations
     playerInfo = json.loads(playerConfigJson)
 
-    return playerInfo['player']
+    return playerInfo['props']['pageProps']['playerData']
 
 def baixarCurso(authMart, infoCurso, downloadAll):
     TEMP_FOLDER = criaTempFolder()
